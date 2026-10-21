@@ -1,0 +1,22 @@
+# 예시 파일 — 실제 운영 설정이 아니며 설치·활성화하지 않았다 (2026-10-21).
+# <backup-destination>은 외부 저장장치를 정한 뒤 실제 마운트 경로로 바꾼다.
+# 설치 위치 예: /etc/systemd/system/backup-monitoring.service
+
+[Unit]
+Description=Beszel·Uptime Kuma 모니터링 데이터 백업 (초안)
+Documentation=https://github.com/kosmos-s/ser8-home-server-ai/blob/main/backup-automation.md
+After=docker.service
+Requires=docker.service
+# 저장장치가 마운트되지 않았으면 실행하지 않는다 (루트 디스크에 잘못 쓰는 것 방지)
+RequiresMountsFor=<backup-destination>
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/backup-monitoring.sh --dest <backup-destination> --require-mount
+# 게임 서버·AI 서비스보다 낮은 우선순위로 실행
+Nice=10
+IOSchedulingClass=idle
+# 중지 요청 시 SIGTERM은 스크립트에만 보내, 컨테이너 재시작 정리 단계가 끊기지 않게 한다
+KillMode=mixed
+TimeoutStopSec=180
+# 실패 시 systemctl status / journalctl -u backup-monitoring.service 로 확인

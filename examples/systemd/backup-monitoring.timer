@@ -1,0 +1,15 @@
+# 예시 파일 — 실제 운영 설정이 아니며 설치·활성화하지 않았다 (2026-10-21).
+# 설치 위치 예: /etc/systemd/system/backup-monitoring.timer
+# 실행 시각은 게임 서버 사용이 적은 시간대로 정해 바꾼다.
+
+[Unit]
+Description=모니터링 데이터 백업 예약 (초안)
+
+[Timer]
+OnCalendar=*-*-* <HH:MM>:00
+# 서버가 꺼져 있어 놓친 실행은 다음 부팅 후 한 번 실행
+Persistent=true
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target

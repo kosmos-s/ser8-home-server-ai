@@ -47,3 +47,4 @@
 ## 에이전트 사용
 
 - 같은 프로젝트에서 Claude와 Codex는 우선 순차적으로 사용한다.
+- Claude의 GitHub 작업은 GitHub MCP를 사용하지 않고, 기존 인증된 `git`·`gh` 명령으로 진행한다.

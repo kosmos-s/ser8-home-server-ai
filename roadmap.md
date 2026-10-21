@@ -10,7 +10,7 @@
 | 1. 기존 서비스 보호 | 설정·데이터·통신 의존성, 백업과 복구 경로 확인 | 진행 중, Beszel·Uptime Kuma 수동 백업 / 다른 저장장치 복사·자동화 미완료, 복원 시험 미실시 | 보호할 데이터와 되돌릴 절차 확보, 변경 전 정상 상태 확인 |
 | 2. 원격 접속 | Tailscale 도입, SSH 인증·접근 범위 정리 | 진행 중, Tailscale 경유 SSH 터널·웹 접속 확인 | 허용된 관리 기기에서 접속·재접속 확인, 기존 관리 경로 영향 확인 |
 | 3. 모니터링 | Beszel Hub·Agent, Uptime Kuma | 진행 중, Beszel 기본 수집·Uptime Kuma HTTP 감시 완료 / 외부 알림 미사용·장애·복구 시험 생략(사용자 선택) / GPU 정확성·장기 수집 미검증 | 실제 지표 수집, 서비스 응답, 장애·복구 감지와 알림 시험 |
-| 4. AI 개발 환경 | Claude Code·Codex, 중앙 Skills·MCP 구성 | 진행 중, 설치·인증·실행, 공통 지침, Skills·Context7 MCP 구성 확인 | 실행 위치·인증·권한·공용 설정 확인, 실제 개발 작업과 연동 시험 |
+| 4. AI 개발 환경 | Claude Code·Codex, 중앙 Skills·MCP 구성 | 기본 구성·확장 스킬 발견·문서 의존성 import·GitHub 연동 확인 / 실제 문서 생성과 일부 기능 미검증 | 실행 위치·인증·권한·공용 설정 확인, 실제 개발 작업과 연동 시험 |
 | 5. 원격 개발 | Orca Remote Server 도입 | 계획 | 제품·버전·공식 출처 확정, 접속·재접속과 작업 수행 확인 |
 | 6. 자동화 | n8n·Discord 워크플로 | 계획 | 수동 실행 성공, 실패·중복 알림 처리, 의도한 권한 범위 확인 |
 | 7. 통합 검증·포트폴리오 | 재부팅·부하·장애·복구 결과 기록 | 계획 | 실제 시험 결과와 제한, 마스킹한 증거를 문서에 반영 |
@@ -20,7 +20,7 @@
 1. **기존 서비스 보호**: 게임 서버 데이터, Wings 설정, Ollama 데이터, Open WebUI 저장 데이터의 위치와 복구 방법을 확인합니다. 변경 전 상태를 기록하고 단계마다 기존 서비스 상태를 비교할 계획입니다.
 2. **원격 접속**: Tailscale 경유 SSH 터널의 웹 접속을 확인했습니다. 재접속·접근 정책을 검증한 뒤 기존 방화벽 규칙을 정리할 계획입니다. 현재 접속 경로를 잃지 않도록 복구 경로를 먼저 확보할 계획입니다.
 3. **모니터링**: Beszel 기본 지표 수집과 Uptime Kuma의 HTTP 응답 감시를 확인했습니다. 외부 알림은 사용하지 않고, 장애·복구 시험은 사용자 선택으로 생략했습니다. 컨테이너별 통계, GPU 정확성·장기 수집, WebSocket 인증 경고의 후속 확인이 남아 있습니다.
-4. **개발 환경**: Claude Code·Codex 설치·인증·실행과 공통 작업 지침, Superpowers·find-skills·Context7 MCP 구성을 확인했습니다. 다음은 이 저장소에서의 실제 문서·개발 작업입니다. 인증정보는 공개 설정과 분리합니다.
+4. **개발 환경**: Claude Code·Codex 설치·인증·실행과 공통 작업 지침, Superpowers·find-skills·Context7 MCP 구성을 확인했습니다. 확장 문서·K-skill·ECC 선택 구성의 설치·발견 보고와 문서 의존성 실행을 정리했습니다. Codex GitHub MCP 조회, GitHub CLI 로그인·push, Claude GitHub MCP 비활성화와 git·gh 사용 결정을 반영했습니다. agent-browser는 사용자 선택으로 제거 완료 보고, handoff는 출처 확인 대기입니다. 실제 문서 생성·렌더링은 미검증이며 인증정보는 공개 설정과 분리합니다.
 5. **Orca Remote Server**: 이름만으로 특정 제품의 기능이나 설치 방식을 가정하지 않습니다. 사용할 제품과 공식 문서, 실행 방식, 인증·접근 범위를 확인한 뒤 도입할 계획입니다.
 6. **자동화**: 첫 워크플로는 실행 결과를 확인할 수 있는 작은 점검·알림 작업으로 시작할 계획입니다. 기존 Discord 현황판 봇과 알림이 중복되는지도 확인합니다.
 7. **통합 검증**: 재부팅 후 접속과 서비스 복구, 게임 서버·AI·자동화 동시 실행 시 자원 사용, 장애·복구 알림, 백업 복구를 시험하고 실제 결과만 반영할 계획입니다.
@@ -48,6 +48,13 @@
 - [x] Claude Code·Codex 설치·인증·실행, 공통 AGENTS.md·CLAUDE.md 작성
 - [x] Superpowers·find-skills·Context7 MCP 구성과 Context7 실제 문서 조회 확인
 - [ ] Claude Code·Codex로 실제 개발 작업 수행과 Codex의 Context7 실제 조회 확인
+- [x] 문서·skill-creator·K-skill·ECC 선택 구성 설치·발견 보고 정리
+- [x] 문서 Python 의존성 import 및 LibreOffice·pandoc·qpdf 실행 확인
+- [x] GitHub CLI 인증·일반 push와 Codex GitHub MCP 실제 조회 확인
+- [x] Claude GitHub MCP 비활성화·인증용 셸 함수 복구, git·gh 사용 결정
+- [ ] 실제 문서 생성·렌더링 검증
+- [x] agent-browser 사용자 선택 제외 및 전용 CLI·스킬·브라우저 제거 완료 보고 확인
+- [ ] handoff 원본 출처 확인
 - [ ] Orca Remote Server 제품·버전 확정과 원격 작업 확인
 - [ ] n8n·Discord 워크플로 성공·실패·중복 처리 확인
 - [ ] 재부팅 후 접속·서비스 복구 확인

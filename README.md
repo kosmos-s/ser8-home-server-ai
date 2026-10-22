@@ -116,6 +116,7 @@ Webmin은 기존 프로젝트에서 사용한 시스템 관리 도구이고, Bes
 
 ## 상세 기록
 
+- [Claude·Codex 확장 구성과 사용 가이드](./ai-tools-guide.md) — 설치 계층·ECC 차이·호출 예시·인증과 미검증 범위
 - [현재 구성과 사용 가이드](./usage-guide.md) — 사용 순서·설치 위치·정리 후보·다음 작업
 - [환경·구축 증거](./evidence.md) — 확인 결과, 공개 가능한 화면과 측정 한계
 - [문제 해결 기록](./troubleshooting.md) — Compose 들여쓰기, SSH 터널, 인증 경고

@@ -1,8 +1,63 @@
 # 환경 점검 기록
 
-> 기준일: 2026-10-21. 사용자가 제공한 확인 정보, 이전 대화의 터미널 출력과 첨부 텍스트를 정리한 기록입니다. 이번 문서화 작업에서 서버에 접속해 재측정하지 않았습니다.
+> 초기 기록: 2026-10-21. 최신 직접 점검: 2026-10-22. 이번 일반 셸 조회와 과거 사용자 제공 로그·화면·보고를 구분합니다. 과거 절의 직접 확인은 당시 세션 기준입니다.
 
-## 확인된 사실
+## 2026-10-22 읽기 전용 직접 점검
+
+이번에는 노트북의 기존 Orca SER8 연결을 통해 서버 기록 저장소의 일반 셸에서 직접 조회했습니다. 기존 에이전트에 작업을 보내거나 tmux 세션을 조작하지 않았습니다. **직접 조회한 상태**, **사용자 보고**, **과거 문서 기록**은 아래처럼 구분합니다. 현재 사용 순서와 설치 경로·정리 후보 목록은 [사용 가이드](./usage-guide.md)가 중심입니다.
+
+| 영역 | 이번에 직접 확인한 사실 | 확인하지 않은 범위 |
+|---|---|---|
+| Git | 시작 시 main 9857069·깨끗한 작업 트리. fetch 후 origin/main 096e2e1, 로컬 전용 0·원격 전용 1. stash 2개, 이 저장소의 로컬 브랜치·worktree 각각 1개 | pull·merge·checkout·stash 적용·삭제·커밋·push 안 함 |
+| Orca | 1.4.237 사용자 설치, current 링크 정상, 프로필 1개, 사용자 서비스 active·enabled·running·NRestarts 0, linger yes | 재부팅 후 자동 복구 시험 안 함 |
+| Orca 실행 구조 | supervise 프로세스와 자식 원격 서버 1개, 별도 내부 daemon-entry 프로세스. 원격 서버는 wildcard 및 loopback TCP 수신, 내부 데몬은 TCP 수신 없고 기존 셸·에이전트 자식 11개 확인 | 별도 내부 데몬을 중복 원격 서버로 단정하거나 종료하지 않음 |
+| 프로젝트 등록 | 서로 다른 Git 저장소 2개가 각각 독립 프로젝트·setup·main 작업 공간으로 등록, 잘못된 upstream 없음 | 노트북 UI 전체·데스크톱 화면 직접 확인 아님 |
+| 접속·세션 | Tailscale 1.104.2, 서비스 active·enabled, BackendState Running·self online. SSH socket active·enabled, service active·disabled. tmux 3.4, 분리된 기존 세션 1개 | 이번 노트북 비대화형 SSH는 인증 실패, Orca 연결로 진행. tmux attach·새 세션·종료 안 함 |
+| 개발 도구 | Claude 2.1.308, Codex 0.163.0, Node 24.22.0, npm 11.19.1, Git 2.43.0, gh 2.45.0. Claude·Codex·gh 인증 상태 명령 정상 | 에이전트 작업·외부 모델/API·MCP 호출·스킬 실행 시험 안 함 |
+| Skills·Plugins | 공용 원본 142, Claude 스킬 137(134 링크·별도 ECC 3), Codex 시스템 5. Orca selector 259 발견, 깨진 링크 없음. Claude Superpowers 7.0.0·document-skills·skill-creator 활성, GitHub 비활성 | selector 수는 고유 스킬 수가 아님. 개별 기능 실행·문서 생성·렌더링 미검증 |
+| MCP | 양쪽 Context7 설정 이름 확인, Claude GitHub 플러그인 disabled 유지 | MCP 프로세스 시작·연결 시험 안 함. Codex 계정 커넥터의 현재 연결은 별도 미검증 |
+| 지침 | ai-workspace와 두 프로젝트에 AGENTS.md·CLAUDE.md 존재. ai-workspace 지침은 그 폴더 범위이며 형제 저장소에 자동 상속되지 않음. 홈 전역 지침은 확인되지 않음 | 지침 자동 로딩의 실제 에이전트 실행 시험 안 함 |
+| 운영 서비스 | Docker 29.1.3·Compose 2.40.3 버전 정상, docker·wings·ollama 서비스 active·enabled. Beszel Hub와 n8n의 설정된 loopback 소켓 수신 | Docker 소켓 권한 없어 현재 컨테이너 healthy·실행 이미지·Agent 상태 재확인 못 함. HTTP·AI·게임 응답 요청 안 함 |
+| 접근 제한 | 일반 사용자, Docker 그룹 아님. UFW 규칙 파일 읽기 제한, ufw 조회 root 필요. sshd -T는 hostkeys 접근 제약으로 종료 | 실제 UFW 허용 순서·IPv6 정책·Tailscale ACL·유효 SSH 인증 정책 확인 못 함. 기존 제한 설정을 이번에 검증 완료로 올리지 않음 |
+| n8n | Compose는 2.44.5 태그·digest와 loopback 바인딩을 지정, 해당 소켓 수신 | 기존 워크플로·DB·인증정보를 열지 않음. 첫 수동 HTTP 성공은 사용자 화면 근거 유지, 재실행·예약 추가 안 함 |
+| 백업 | 저장소 초안 존재. 배포 스크립트·모니터링 전용 system/user timer 없음, 사용자 cron 없음. 비공개 백업 루트는 접근 제한 | 현재 수동 백업 목록·무결성·복원 가능성 미확인. 백업·dry-run·예약 배치 안 함 |
+
+### 자원 스냅샷
+
+2026-10-22 18:24 KST의 free·df 조회에서 루트 ext4 468G / 사용 116G / 가용 329G / 27%, 메모리 총 14Gi / 사용 8.2Gi / 가용 6.7Gi, swap 총 4Gi / 사용 1.1Gi였습니다. 수치의 단위는 명령 표시를 유지했습니다. 한 시점의 사용량이며 성능 향상·동시 부하·가용 용량 보장은 아닙니다.
+
+### 보존한 것과 미확인
+
+- 정책: Orca YOLO 유지, Claude·Codex 같은 작업 공간 순차 사용, Claude GitHub는 git·gh 사용, agent-browser 제외, Unknown 해결 완료는 사용자 보고로 유지.
+- 이번 문서 편집은 시작 시 깨끗했던 작업 트리의 관련 Markdown에 한정합니다. 원격 1커밋은 적용하지 않았으며 usage-guide는 원격 내용을 읽어 현재 점검으로 보완한 작업 파일입니다.
+- 설정 백업·stash·이전 CLI 설치본·플러그인 캐시·프로필 DB 백업은 삭제하지 않았습니다. 상세 의존성과 영향은 [정리 후보](./usage-guide.md#삭제하지-않은-정리-후보)를 참고합니다.
+- Docker·UFW·sshd·비공개 백업의 추가 확인은 아래 읽기 전용 명령이 필요합니다. sudo 비밀번호 입력과 우회는 시도하지 않았습니다. 출력에는 비공개 주소·포트가 있으므로 원문을 공개하지 않습니다.
+
+```bash
+sudo docker ps --format '{{.Names}} {{.Status}} {{.Image}}'
+sudo docker inspect --format '{{.Name}} {{.State.Status}} {{if .State.Health}}{{.State.Health.Status}}{{end}}' <container-name>
+sudo ufw status numbered
+sudo ss -lntp
+sudo /usr/sbin/sshd -T | awk '$1 ~ /^(passwordauthentication|pubkeyauthentication|permitrootlogin)$/'
+sudo find <monitoring-backup-root> -mindepth 1 -maxdepth 1 -printf '%y %f\n'
+```
+
+### 096e2e1의 공개 이미지와 로컬 상태
+
+기존 로컬 공개 이미지 4장은 수정하지 않았습니다. 다음 4장은 원격 커밋에만 있으며 이번 Markdown 작업에서 바이너리를 복사하지 않았습니다. 원격 기록의 공개 판단과 원본/AI 편집본 구분을 그대로 유지합니다.
+
+| 원격 파일 | 근거·해석 |
+|---|---|
+| [05-orca-connected-ai-edited.png](https://github.com/kosmos-s/ser8-home-server-ai/blob/096e2e1501f178c94a5bf6bca22ccb0db85ac419/images/05-orca-connected-ai-edited.png) | AI 편집 참고본. 원본 실행 증빙 아님 |
+| [06-n8n-timeout.png](https://github.com/kosmos-s/ser8-home-server-ai/blob/096e2e1501f178c94a5bf6bca22ccb0db85ac419/images/06-n8n-timeout.png) | 기존 공개 결과 원본. 조치 전 타임아웃 |
+| [07-n8n-http-success.png](https://github.com/kosmos-s/ser8-home-server-ai/blob/096e2e1501f178c94a5bf6bca22ccb0db85ac419/images/07-n8n-http-success.png) | 기존 공개 결과 원본. 단일 HTTP 성공이며 성능 검증 아님 |
+| [08-orca-removal-menu.png](https://github.com/kosmos-s/ser8-home-server-ai/blob/096e2e1501f178c94a5bf6bca22ccb0db85ac419/images/08-orca-removal-menu.png) | 메뉴 원본. 화면 자체는 제거 실행·해결의 증거가 아니며 해결은 사용자 보고 |
+
+## 과거 기록을 읽는 방법
+
+이 아래의 값·미완료 표현은 각 절의 날짜 당시 기록입니다. 'Orca 미설치', 'tmux 미확인', 'Unknown 최종 확인 전', 'n8n 첫 업무 미정'은 이후 진행으로 바뀌었으므로 현재 미완료 목록으로 사용하지 않습니다. 현재 상태는 위 직접 점검과 사용 가이드, Unknown·수동 HTTP 성공은 사용자 후속 확인을 우선합니다.
+
+## 2026-10-21 확인된 사실 — 과거 기록
 
 | 항목 | 점검 당시 결과 | 근거와 해석 범위 |
 |---|---|---|

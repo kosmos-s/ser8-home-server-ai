@@ -55,7 +55,7 @@ flowchart TD
     C --> E[Beszel 기본 지표 / Uptime Kuma HTTP 감시 · 확인]
     C --> F[Claude Code / Codex / 중앙 Skills·MCP · 기본 구성 확인]
     C --> G[Orca Remote Server · 서버·노트북 연결 확인, 데스크톱 미완료]
-    C --> H[n8n 자동화 · 대상 선정 전]
+    C --> H[n8n · 수동 HTTP 상태 확인 성공]
 ```
 
 | 영역 | 도입 목적 | 검증할 내용 |
@@ -65,7 +65,7 @@ flowchart TD
 | Uptime Kuma | 서비스 가용성 확인 | HTTP 응답 감시 확인, 외부 알림 미사용·장애·복구 시험 생략 |
 | Claude Code / Codex + 중앙 Skills·MCP | 개발 도구와 공용 작업 지침·연동 설정 관리 | 실행 위치, 최소 권한, 인증정보 분리, 실제 작업 |
 | Orca Remote Server | SER8에 작업 환경을 모아 노트북·데스크톱에서 이어 사용 | 1.4.237 설치·사용자 서비스·노트북 재접속 확인, YOLO 유지 결정 반영, 개별 세션의 실제 인자·데스크톱 연결·재부팅 후 복구는 미검증 |
-| n8n | 반복 작업 자동화 | 외부 알림 미사용 결정을 반영해 첫 업무 선정, 실행·실패 처리 확인 |
+| n8n | 반복 작업 자동화 | 2.44.5 설치·계정 생성(사용자 보고), 수동 HTTP 상태 확인 워크플로 성공(사용자 화면). 예약 실행·외부 알림·AI 연동은 미구성 |
 
 Webmin은 기존 프로젝트에서 사용한 시스템 관리 도구이고, Beszel은 이번 확장에서 Hub·Agent를 실행해 자원 관찰에 사용한 도구입니다. Webmin의 기존 사용 기록만으로 Beszel이 설치되었다고 판단하지 않습니다.
 
@@ -110,4 +110,5 @@ Webmin은 기존 프로젝트에서 사용한 시스템 관리 도구이고, Bes
 - [문제 해결 기록](./troubleshooting.md) — Compose 들여쓰기, SSH 터널, 인증 경고
 - [단계별 계획](./roadmap.md) — 완료 범위와 다음 검증 항목
 - [모니터링 백업 자동화 초안](./backup-automation.md) — 백업 대상, 중지 방식, 오류 처리, 예약 예시 (미실행)
+- [n8n 최소 구성과 첫 수동 워크플로](./n8n-setup.md) — 버전·Compose 원칙, 접속 방법, HTTP 상태 확인 워크플로, UFW 타임아웃 해결
 - [Orca 원격 서버 구성](./orca-remote-server.md) — 설치·서비스 전환, Tailscale 전용 제한, 독립 프로젝트 재등록, Unknown 항목, 데스크톱 연결 절차

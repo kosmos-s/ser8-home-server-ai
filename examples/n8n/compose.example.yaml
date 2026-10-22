@@ -1,0 +1,32 @@
+# 예시 — 실제 운영 설정이 아닙니다. <placeholder> 값은 환경에 맞게 채웁니다.
+# n8n 개인용 단일 인스턴스. 웹 포트는 호스트 loopback에만 게시합니다.
+# 암호화 키는 첫 실행 때 n8n이 영속 볼륨(/home/node/.n8n)에 생성하므로 이 파일에 넣지 않습니다.
+name: n8n
+
+services:
+  n8n:
+    image: n8nio/n8n:2.44.5@sha256:bcb4e4917141f4a5249c8eadf2776d347f4c2ede75adfbbc82064826af9a8ead
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:<host-port>:<container-port>"
+    environment:
+      - GENERIC_TIMEZONE=Asia/Seoul
+      - TZ=Asia/Seoul
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_HOST=localhost
+      - N8N_PORT=<container-port>
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:<host-port>/
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_PUBLIC_API_DISABLED=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  n8n_data:

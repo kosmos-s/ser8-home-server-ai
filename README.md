@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-**2026-10-21 기록 기준으로 Docker Compose 설치, Tailscale 경유 SSH 터널 사용, Beszel 기본 지표 수집, Uptime Kuma HTTP 응답 감시, 모니터링 데이터 수동 백업, Claude Code·Codex 개발 환경 구성까지 확인했습니다.** 전체 통합 환경의 구축 완료를 의미하지 않습니다. 서버에 새로 접속해 재검증한 결과가 아니라, 사용자가 제공한 확인 정보·로그·화면·설치 보고에 근거한 기록입니다. Context7 문서 조회는 앞선 SER8 Claude Code 세션에서 직접 호출했다고 보고받았습니다. 이번 GitHub 반영 작업에서는 서버에 접속해 재측정하지 않았습니다.
+**2026-10-21 기록 기준으로 Docker Compose 설치, Tailscale 경유 SSH 터널 사용, Beszel 기본 지표 수집, Uptime Kuma HTTP 응답 감시, 모니터링 데이터 수동 백업, Claude Code·Codex 개발 환경 구성까지 확인했습니다. 2026-10-22에는 SER8 Claude Code 세션에서 Orca 헤드리스 서버 설치·사용자 서비스 전환·독립 프로젝트 등록을 직접 확인했습니다([Orca 원격 서버 구성](./orca-remote-server.md)).** 전체 통합 환경의 구축 완료를 의미하지 않습니다. 서버에 새로 접속해 재검증한 결과가 아니라, 사용자가 제공한 확인 정보·로그·화면·설치 보고에 근거한 기록입니다. Context7 문서 조회는 앞선 SER8 Claude Code 세션에서 직접 호출했다고 보고받았습니다. 이번 GitHub 반영 작업에서는 서버에 접속해 재측정하지 않았습니다.
 
 | 구분 | 확인 결과 |
 |---|---|
@@ -17,7 +17,8 @@
 | AI 개발 환경 | Claude Code·Codex 설치·인증·실행, 공통 작업 지침, Superpowers·find-skills·Context7 MCP 구성 확인 |
 | 확장 스킬·플러그인 | 문서 스킬·skill-creator·K-skill 130개와 ECC 선택 구성 발견 보고, 문서 Python 의존성 import 및 LibreOffice·pandoc·qpdf 실행 확인 |
 | GitHub 연동 | GitHub CLI 로그인·일반 push 성공, Codex GitHub MCP 실제 조회 성공. Claude GitHub MCP는 조회 성공 후 사용자 선택으로 비활성화하고 git·gh 사용 |
-| 제외·보류 | agent-browser는 사용자 선택으로 전용 CLI·스킬·브라우저 제거 완료 보고, handoff 출처 확인 대기, Orca 스킬 설치와 원격 연결 완료는 구분 |
+| Orca 원격 서버 | 1.4.237 사용자 전용 설치, systemd 사용자 서비스 `active`·`enabled`, Tailscale 전용 접근 제한, 독립 프로젝트 등록, 노트북 재접속 확인. 노트북 Unknown 항목 정리·에이전트 권한 모드 조정·데스크톱 연결은 미완료 |
+| 제외·보류 | agent-browser는 사용자 선택으로 전용 CLI·스킬·브라우저 제거 완료 보고, handoff 출처 확인 대기 |
 | 통합 환경 구축 | 모니터링·수동 백업·AI 개발 도구 기본 구성 완료, 백업 자동화·외부 저장·재부팅 복구·원격 개발·자동화는 미완료 |
 
 `active`, `enabled`, `healthy`는 점검 당시의 서비스·컨테이너 상태입니다. 실제 게임 접속, AI 응답, 재부팅 후 복구까지 검증했다는 뜻은 아닙니다.
@@ -53,7 +54,7 @@ flowchart TD
     C --> D[Pterodactyl Wings / Ollama / Open WebUI · 상태 확인]
     C --> E[Beszel 기본 지표 / Uptime Kuma HTTP 감시 · 확인]
     C --> F[Claude Code / Codex / 중앙 Skills·MCP · 기본 구성 확인]
-    C --> G[Orca Remote Server · 계획]
+    C --> G[Orca Remote Server · 서버·노트북 연결 확인, 데스크톱 미완료]
     C --> H[n8n 자동화 · 대상 선정 전]
 ```
 
@@ -63,7 +64,7 @@ flowchart TD
 | Beszel | 서버 자원 관찰 | Hub·Agent와 기본 지표 확인, 컨테이너별 통계·GPU 정확성은 미검증 |
 | Uptime Kuma | 서비스 가용성 확인 | HTTP 응답 감시 확인, 외부 알림 미사용·장애·복구 시험 생략 |
 | Claude Code / Codex + 중앙 Skills·MCP | 개발 도구와 공용 작업 지침·연동 설정 관리 | 실행 위치, 최소 권한, 인증정보 분리, 실제 작업 |
-| Orca Remote Server | SER8에 작업 환경을 모아 노트북·데스크톱에서 이어 사용 | stablyai/orca 헤드리스 서버 방식 선택, 실행 계정·버전·설치·연결·상시 실행은 미완료 |
+| Orca Remote Server | SER8에 작업 환경을 모아 노트북·데스크톱에서 이어 사용 | 1.4.237 설치·사용자 서비스·노트북 재접속 확인, 에이전트 권한 모드·데스크톱 연결·재부팅 후 복구는 미검증 |
 | n8n | 반복 작업 자동화 | 외부 알림 미사용 결정을 반영해 첫 업무 선정, 실행·실패 처리 확인 |
 
 Webmin은 기존 프로젝트에서 사용한 시스템 관리 도구이고, Beszel은 이번 확장에서 Hub·Agent를 실행해 자원 관찰에 사용한 도구입니다. Webmin의 기존 사용 기록만으로 Beszel이 설치되었다고 판단하지 않습니다.
@@ -96,7 +97,7 @@ Webmin은 기존 프로젝트에서 사용한 시스템 관리 도구이고, Bes
 - 백업은 같은 서버의 수동 백업입니다. 다른 저장장치 복사, 자동 백업, 복원 시험은 하지 않았고 Open WebUI는 백업 대상에서 제외했습니다. 백업 스크립트와 systemd 예약 예시는 정적 검토·문법 검사 후 GitHub에 반영했으나 실행·설치하지 않았습니다. 외부 저장장치는 아직 정하지 않았습니다.
 - 문서 스킬은 의존성 설치·불러오기와 도구 실행까지만 확인했습니다. 실제 문서 생성·렌더링은 미검증입니다.
 - agent-browser는 사용자 선택으로 제외했습니다. 전용 CLI·공용 스킬·Claude 링크·전용 브라우저·설치 목록 항목 제거 완료를 보고받았습니다.
-- handoff 출처 확인, Orca 원격 개발 연결과 n8n 자동화는 미완료입니다. Orca 관련 스킬의 발견을 앱·서버 연결 성공으로 보지 않습니다.
+- handoff 출처 확인과 n8n 자동화는 미완료입니다. Orca는 서버 설치·상시 실행·노트북 재접속까지 확인했고, 노트북 Unknown 항목 정리, 에이전트 권한 모드 조정 후 Claude·Codex 실행 확인, 데스크톱 연결이 남아 있습니다.
 - 여러 서비스의 동시 부하, AI 모델 응답 성능, 재부팅 후 전체 서비스 복구는 미검증입니다.
 - 실제 네트워크 주소·도메인·호스트명·사용자명·서비스별 포트와 노출 경로·인증정보는 공개하지 않습니다.
 
@@ -109,3 +110,4 @@ Webmin은 기존 프로젝트에서 사용한 시스템 관리 도구이고, Bes
 - [문제 해결 기록](./troubleshooting.md) — Compose 들여쓰기, SSH 터널, 인증 경고
 - [단계별 계획](./roadmap.md) — 완료 범위와 다음 검증 항목
 - [모니터링 백업 자동화 초안](./backup-automation.md) — 백업 대상, 중지 방식, 오류 처리, 예약 예시 (미실행)
+- [Orca 원격 서버 구성](./orca-remote-server.md) — 설치·서비스 전환, Tailscale 전용 제한, 독립 프로젝트 재등록, Unknown 항목, 데스크톱 연결 절차

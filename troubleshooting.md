@@ -19,7 +19,7 @@
 
 처음부터 서비스를 다시 설치하거나 이미 허용된 UFW 규칙을 반복 추가할 문제로 확정할 수 없었습니다. 서버 수신 → 클라이언트 TCP → 호스트 규칙 → Tailscale 대상·포트 순서로 확인한 사례입니다. 다른 서비스의 허용·차단 상태는 별도 검증 대상입니다.
 
-<img src="./images/12-hermes-timeout-ai-edited.png" alt="주소를 가린 연결 시간 초과 AI 편집 참고본" width="600">
+<img src="./images/12-hermes-timeout-redacted.png" alt="주소를 가린 연결 시간 초과 원본 기반 마스킹본" width="600">
 
 ### 로그인 시도 제한
 
@@ -27,7 +27,7 @@
 
 웹 암호는 전용 환경 파일 `~/.config/hermes-dashboard.env`를 수정하고 해당 사용자 서비스를 다시 시작하는 방식으로 변경했습니다. 사용자가 변경 완료를 확인했으며 암호 값·인증 쿠키·서명용 비밀값은 저장하지 않습니다. 임의의 비밀번호 최소 길이 정책을 새로 구현한 것은 아닙니다.
 
-<img src="./images/11-hermes-login-ai-edited.png" alt="계정과 암호 영역을 가린 로그인 제한 AI 편집 참고본" width="420">
+<img src="./images/11-hermes-login-redacted.png" alt="계정과 암호 영역을 가린 로그인 제한 원본 기반 마스킹본" width="420">
 
 ### 재부팅·입력 문제와 구분
 

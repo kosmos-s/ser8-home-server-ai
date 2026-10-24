@@ -17,13 +17,15 @@
 | [05-orca-connected-redacted.png](./05-orca-connected-redacted.png) | 스크린샷 2026-10-22 080654.png | 연결 영역만 자름, 호스트·계정 가림, 사이드바·하단 설정 제외 | 연결됨·호환됨·버전·상태 표시 |
 | [09-hermes-web-redacted.png](./09-hermes-web-redacted.png) | 스크린샷 2026-10-24 010852.png | 홈 경로·세션 ID·오른쪽 대화 목록 가림 | 웹 구성·메뉴·모델·도구 목록 |
 | [10-hermes-mobile-redacted.png](./10-hermes-mobile-redacted.png) | 스크린샷 2026-10-24 010935.png | 홈 경로·세션 ID 가림 | 좁은 화면의 UI. 실제 휴대폰 사용은 별도 사용자 보고 |
-| [11-hermes-login-redacted.png](./11-hermes-login-redacted.png) | 스크린샷 2026-10-24 182134.png | 계정·비밀번호 입력 내부 전체 가림 | 로그인 시도 제한 문구 |
+| [11-hermes-login-redacted.png](./11-hermes-login-redacted.png) | 스크린샷 2026-10-24 182134.png | 계정·비밀번호 입력 내부 전체 가림 | 로그인 시도 제한 문구. 하단 PUBLIC BIND 표기만으로 인터넷 공개를 판단하지 않으며, 이 환경의 수신 출력은 Tailscale 주소 바인딩 |
 | [12-hermes-timeout-redacted.png](./12-hermes-timeout-redacted.png) | 스크린샷 2026-10-24 181420.png | 실제 주소 가림 | 시간 초과 문구·오류 코드 |
 | [13-uptime-kuma-redacted.png](./13-uptime-kuma-redacted.png) | 스크린샷 2026-10-21 211320.png | 서비스 URL 전체·계정 아바타 가림 | HTTP 감시 항목·온라인 표시·당시 수치 |
 
 기존 `03`·`04`·`05`·`09`~`13`의 `-ai-edited.png` 파일은 위 `-redacted.png` 파일로 대체했습니다. 원본 파일과 마스킹본은 별개이며 원본을 덮어쓰지 않았습니다.
 
-## 유지한 비식별 원본 8장
+## 추가 가림 없이 유지한 캡처 8장
+
+아래 파일은 기존 캡처를 유지했습니다. 14·15번은 선택 메뉴 부분, 16번은 버전 안내 부분만 담긴 화면입니다. 여기서 가림 없음은 전체 데스크톱·브라우저를 자르지 않은 원본이라는 의미가 아닙니다.
 
 | 파일 | 보여 주는 범위와 해석 |
 |---|---|
@@ -32,9 +34,9 @@
 | [06-n8n-timeout.png](./06-n8n-timeout.png) | 수동 HTTP 요청 실패 결과 |
 | [07-n8n-http-success.png](./07-n8n-http-success.png) | 단일 HTTP 200·ok=true 성공. 성능·정기 실행 검증 아님 |
 | [08-orca-removal-menu.png](./08-orca-removal-menu.png) | 제거 메뉴. 실행·해결은 별도 사용자 보고 |
-| [14-hermes-model-selection.png](./14-hermes-model-selection.png) | 모델 선택 메뉴. 사용자 원본: 스크린샷 2026-10-24 004546.png |
-| [15-hermes-reasoning-selection.png](./15-hermes-reasoning-selection.png) | 추론 강도 메뉴. 사용자 원본: 스크린샷 2026-10-24 004655.png |
-| [16-pterodactyl-update-notice.png](./16-pterodactyl-update-notice.png) | 업데이트 전 안내. 사용자 원본: 스크린샷 2026-10-23 171855.png. 업데이트 완료 증거 아님 |
+| [14-hermes-model-selection.png](./14-hermes-model-selection.png) | 모델 선택 메뉴 부분 캡처, 추가 가림 없음. 사용자 원본: 스크린샷 2026-10-24 004546.png |
+| [15-hermes-reasoning-selection.png](./15-hermes-reasoning-selection.png) | 추론 강도 메뉴 부분 캡처, 추가 가림 없음. 사용자 원본: 스크린샷 2026-10-24 004655.png |
+| [16-pterodactyl-update-notice.png](./16-pterodactyl-update-notice.png) | 업데이트 전 버전 안내 부분 캡처, 추가 가림 없음. 사용자 원본: 스크린샷 2026-10-23 171855.png. 업데이트 완료 증거 아님 |
 
 ## 공개하지 않은 자료
 

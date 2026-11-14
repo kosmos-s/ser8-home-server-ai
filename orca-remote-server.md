@@ -2,6 +2,10 @@
 
 > 2026-10-22 SER8 Claude Code 세션(SSH 접속 후 tmux 안에서 실행)에서 직접 설치·확인한 기록입니다. UFW 규칙 순서와 노트북 화면 상태는 사용자가 제공한 출력·화면 설명에 근거합니다. 명령 예시의 `<placeholder>`는 실제 운영 값이 아닙니다. 페어링 링크·토큰·프로필 백업은 이 문서와 Git에 남기지 않습니다.
 
+## 2026-11-14 후속: Hermes의 Codex 위임
+
+사용자 제공 Hermes 실행 보고에서 기존 Orca 1.4.237 조회와 전용 조정자 연결, Codex 1명의 읽기 전용 README 요약·완료 결과 회수가 확인됐습니다. 최초 완료 전송의 `orca` 이름 충돌은 같은 작업자의 보고만 재요청해 복구했다고 보고됐습니다. [수행 주체·단계별 결과·한계](./hermes-orca-delegation.md)를 참고합니다. 아래 직접 확인 표와 설치·권한 기록은 10월 당시 범위이며, 이번 작업자의 실제 권한 인자는 새로 확인하지 않았습니다.
+
 ## 현재 상태
 
 **2026-10-24 추가:** 모바일 페어링 후 사용과 재접속 성공을 보고받았습니다. 공용 `orca-cli`·`orchestration` 스킬 2종의 설치 완료 출력도 확인했습니다. 자세한 사용 범위는 [후속 모바일 기록](#mobile-followup)을 참고합니다. 아래의 직접 확인 표는 종전 점검 시점과 구분합니다.
@@ -225,5 +229,5 @@ sudo ufw prepend allow in on tailscale0 proto tcp to any port <orca-port> commen
 
 공용 경로 `~/.agents/skills/orca-cli`와 `~/.agents/skills/orchestration`에 설치됐고, 설치기는 Claude Code·Codex·OpenClaw·Universal 대상을 표시했습니다. 같은 이름의 기존 스킬을 덮어쓸 수 있다는 설치 안내와 실제 설치 완료를 구분합니다. 기존 스킬 총수 조사에 이 두 개를 단순 합산하지 않으며, 각 CLI의 실행 성공이나 Hermes에서의 자동 인식을 검증한 결과가 아닙니다.
 
-현재 역할은 **Orca에서 프로젝트·터미널 중심 원격 개발**, [Hermes 웹](./hermes-assistant.md)에서 개인 비서 요청입니다. 두 도구를 함께 유지하며 연결·인증·세션은 각각 관리합니다.
+10월 당시 역할은 **Orca에서 프로젝트·터미널 중심 원격 개발**, [Hermes 웹](./hermes-assistant.md)에서 개인 비서 요청입니다. 두 도구를 함께 유지하며 연결·인증·세션은 각각 관리합니다.
 

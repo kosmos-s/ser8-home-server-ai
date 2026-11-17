@@ -76,4 +76,5 @@ AI의 조사·명령 제안·설정 및 문서 작성 지원을 받으며 구축
 | [날짜별 근거와 화면](./evidence.md) · [이미지 가림 범위](./images/README.md) | 확인 출처·과거 이력·공개 이미지 |
 | [Orca](./orca-remote-server.md) · [Hermes](./hermes-assistant.md) · [AI 도구](./ai-tools-guide.md) | 설치·연결·운영 범위 |
 | [Hermes → Orca 위임 시험](./hermes-orca-delegation.md) | Codex 읽기 작업·결과 회수·명령 충돌 복구와 검증 한계 |
+| [Claude·Codex 작업 방식 선택지](./agent-work-modes.md) | 이어달리기(사용량 소진 시 교대·검토)와 병렬 비교, 2026-11-17 병렬 시도 기록 |
 | [n8n](./n8n-setup.md) · [백업 초안](./backup-automation.md) · [계획](./roadmap.md) | 수동 실험·미적용 예시·남은 검증 |
